@@ -23,41 +23,56 @@ export class Gameboard {
         this.ships = [];
         this.attacked = [];
         this.placedShip = [];
+        this.hitCoordinates = [];
+        this.missCoordinates = []
     }
-    
 
-    placeShip(length, direction, x, y) {
-        if(this.shipCount > 5) return;
+    // Ship placement and helper functions
+    placeShip(length, direction, x, y) {  
+        if(this.shipCount >= 5) return;
 
         let ship = new Ship(length);
-        let placedCordinates = false
+        let placedCoordinates = false
+        let shipBuilder = [];
 
         if(direction === "x-axis") {
-            let shipBuilder = [];
+            if(!this.#boundaryValidate(length, direction, x, y)) return;
 
             for(let i = 0; i < ship.length; i++) {
                 let current = [x+i, y]; 
                 shipBuilder.push(current);  
             }
 
-            placedCordinates = this.#placeShipCoordinates(shipBuilder, ship);
+            placedCoordinates = this.#placeShipCoordinates(shipBuilder, ship);
         }
 
         if(direction === "y-axis") {
-            let shipBuilder = [];
+            if(!this.#boundaryValidate(length, direction, x, y)) return;
             
             for(let i = 0; i < ship.length; i++) {
                 let current = [x, y+i];
                 shipBuilder.push(current);
             }
 
-            placedCordinates = this.#placeShipCoordinates(shipBuilder, ship);
+            placedCoordinates = this.#placeShipCoordinates(shipBuilder, ship);
         }
 
-        if(placedCordinates) {
+        if(placedCoordinates) {
             this.ships.push(ship);
             this.shipCount++;
         }
+    }
+
+    #boundaryValidate(length, direction, x, y) {  // 5, x, 5, 0
+        if(direction === "x-axis") {
+            if(x + length -1 > 9) return false;
+        }
+
+        if(direction === "y-axis") {
+            if(y + length -1 > 9) return false;
+        }
+
+        return true;
     }
 
     #placeShipCoordinates(shipBuilder, ship) {        
@@ -71,7 +86,7 @@ export class Gameboard {
         return true;
     }
 
-
+    // Recieve attack
     receiveAttack(x, y) {
         let attackCoordinates = [x, y];
 
@@ -83,10 +98,18 @@ export class Gameboard {
             for(let curCoordinates of ship.coordinates) {
                 if(arrayEquals(curCoordinates, attackCoordinates)){
                     ship.hit();
+                    this.hitCoordinates.push([x, y]);
                     return;
                 }
             }
         }
+        this.missCoordinates.push([x, y]);
     }
 
+}
+
+export class Player {
+    constructor() {
+        this.gameboard = new Gameboard()
+    }
 }
