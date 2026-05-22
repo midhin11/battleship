@@ -1,0 +1,38 @@
+/* styles.css */
+
+.grid {
+    border: 1px solid black;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.grid:hover {
+    background-color: cyan;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
+    gap: 1px;
+}
+
+.game-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 100px;
+    border: 2px solid red;
+}
+
+.player-container {
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px
+}
+
+/* .player-container > * {
+} */
