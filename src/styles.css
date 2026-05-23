@@ -25,7 +25,7 @@
     border: 2px solid red;
 }
 
-.player-container {
+.player-container, .comp-container {
     border: 1px solid green;
     display: flex;
     flex-direction: column;

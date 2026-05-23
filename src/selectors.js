@@ -1,8 +1,9 @@
 //selectors.js
 
-let main = document.querySelector(".main");
-let gameContainer = document.createElement("div");
+export const gameContainer = document.querySelector(".game-container");
 gameContainer.classList.add("game-container");
-main.append(gameContainer);
 
-export { main, gameContainer};
+export const playerContainer = document.querySelector(".player-container");
+export const compContainer = document.querySelector(".comp-container");
+export const playerBoardDisplay = document.querySelector(".player-board");
+export const compBoardDisplay = document.querySelector(".comp-board");
