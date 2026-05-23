@@ -3,6 +3,7 @@
 import "./styles.css";
 import { Ship, Gameboard, Player } from "./factories.js";
 import { renderBoard } from "./render-board.js";
+import { gridClickEventInitilaziation } from "./dom-events.js";
 
 let playerOne = new Player();
 let playerComp = new Player();
@@ -26,5 +27,7 @@ compBoard.receiveAttack(2, 1);
 compBoard.receiveAttack(2, 2);
 
 
-renderBoard(playerBoard, "Player");
-renderBoard(compBoard, "Computer");
+let playerBoardDisplay = renderBoard(playerBoard, "Player");
+let compBoardDisplay = renderBoard(compBoard, "Computer");
+
+gridClickEventInitilaziation(playerBoard, playerBoardDisplay, compBoard, compBoardDisplay);
