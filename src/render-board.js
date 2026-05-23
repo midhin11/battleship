@@ -36,7 +36,7 @@ export function renderBoard(board, player) {
     gameContainer.append(inGameContainer);
 
     // Displaying ships on board
-    displayShips(board, boardDisplay);
+    displayShips(board, boardDisplay, player);
 
     //Displaying hits on board
     hitDisplay(board, boardDisplay);
@@ -51,7 +51,8 @@ export function renderBoard(board, player) {
 }
 
 
-export function displayShips(board, boardDisplay) {
+export function displayShips(board, boardDisplay, player) {
+    // if(player === "Player") {
     for (let ship of board.ships) {
         for(let coords of ship.coordinates) {
             let [row, col] = coords; 
@@ -59,6 +60,7 @@ export function displayShips(board, boardDisplay) {
             shipGrid.style.backgroundColor = "gray";
         }
     }
+// }
 }
 
 export function hitDisplay(board, boardDisplay) {
@@ -73,7 +75,7 @@ export function missDisplay(board, boardDisplay) {
     for(let missCoords of board.missCoordinates) {
         let [row, col] = missCoords;
         let missGrid = boardDisplay.querySelector(`.grid[data-row="${row}"][data-col="${col}"]`);
-        missGrid.style.backgroundColor = "blue";
+        missGrid.style.backgroundColor = "lightblue";
     }
 }
 
@@ -87,4 +89,10 @@ export function isSunkDisplay(board, boardDisplay) {
             }
         }
     }
+}
+
+export function updateBoardDisplay(board, boardDisplay) {
+    hitDisplay(board, boardDisplay);
+    missDisplay(board, boardDisplay);
+    isSunkDisplay(board, boardDisplay);
 }

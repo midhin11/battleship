@@ -3,11 +3,18 @@
 .grid {
     border: 1px solid black;
     box-sizing: border-box;
+}
+
+.comp {
     cursor: pointer;
     transition: 0.1s ease-in-out;
 }
 
-.grid:hover {
+.player {
+    cursor: not-allowed;
+}
+
+.comp:hover {
     background-color: cyan;
 }
 

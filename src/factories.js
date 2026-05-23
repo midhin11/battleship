@@ -22,21 +22,21 @@ export class Gameboard {
         this.shipCount = 0
         this.ships = [];
         this.attacked = [];
-        this.placedShip = [];
+        this.occupiedCoordinates = [];
         this.hitCoordinates = [];
         this.missCoordinates = []
     }
 
     // Ship placement and helper functions
     placeShip(length, direction, x, y) {  
-        if(this.shipCount >= 5) return;
+        if(this.shipCount >= 5) return false;
 
         let ship = new Ship(length);
         let placedCoordinates = false
         let shipBuilder = [];
 
         if(direction === "x-axis") {
-            if(!this.#boundaryValidate(length, direction, x, y)) return;
+            if(!this.#boundaryValidate(length, direction, x, y)) return false;
 
             for(let i = 0; i < ship.length; i++) {
                 let current = [x+i, y]; 
@@ -47,7 +47,7 @@ export class Gameboard {
         }
 
         if(direction === "y-axis") {
-            if(!this.#boundaryValidate(length, direction, x, y)) return;
+            if(!this.#boundaryValidate(length, direction, x, y)) return false;
             
             for(let i = 0; i < ship.length; i++) {
                 let current = [x, y+i];
@@ -60,7 +60,10 @@ export class Gameboard {
         if(placedCoordinates) {
             this.ships.push(ship);
             this.shipCount++;
+            return true;
         }
+
+        return false;
     }
 
     #boundaryValidate(length, direction, x, y) {  // 5, x, 5, 0
@@ -77,12 +80,12 @@ export class Gameboard {
 
     #placeShipCoordinates(shipBuilder, ship) {        
         for(let coordinates of shipBuilder) {
-            let isShipPlaced = this.placedShip.some(placedAlready => arrayEquals(placedAlready, coordinates));
+            let isShipPlaced = this.occupiedCoordinates.some(placedAlready => arrayEquals(placedAlready, coordinates));
             if(isShipPlaced) return false;
         }
 
         ship.coordinates.push(...shipBuilder);
-        this.placedShip.push(...shipBuilder);
+        this.occupiedCoordinates.push(...shipBuilder);
         return true;
     }
 
