@@ -51,6 +51,8 @@ export function renderBoard(board, player) {
 }
 
 
+// Functions to change grid appearance as per state change
+
 export function displayShips(board, boardDisplay, player) {
     // if(player === "Player") {
     for (let ship of board.ships) {

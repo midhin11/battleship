@@ -1,7 +1,9 @@
+//computer-play.js
+
 import { updateBoardDisplay } from "./render-board.js";
 import { arrayEquals } from "./hepler-functions.js";
 
-export function enemyPlay(playerBoard, playerBoardDisplay) {
+export function computerPlay(playerBoard, playerBoardDisplay) {
 
     let successfulAttack = false;
 

@@ -1,3 +1,5 @@
+//factories.js
+
 import { arrayEquals } from "./hepler-functions.js";
 
 export class Ship {

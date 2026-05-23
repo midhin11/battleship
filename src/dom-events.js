@@ -2,7 +2,7 @@
 
 import { updateBoardDisplay } from "./render-board.js";
 import { gameOvercheck } from "./game-over.js";
-import { enemyPlay } from "./computer-play.js";
+import { computerPlay } from "./computer-play.js";
 
 export function gridClickEventInitilaziation (playerBoard, playerBoardDisplay, compBoard, compBoardDisplay) {
 
@@ -28,7 +28,7 @@ export function gridClickEventInitilaziation (playerBoard, playerBoardDisplay, c
             }
             
             setTimeout(() => {
-                enemyPlay(playerBoard, playerBoardDisplay);
+                computerPlay(playerBoard, playerBoardDisplay);
 
                 // Game over and winner check
                 if (gameOvercheck(playerBoard, compBoard)) {
