@@ -91,7 +91,7 @@ export class Gameboard {
         let attackCoordinates = [x, y];
 
         let isAttacked = this.attacked.some(attackedAlready => arrayEquals(attackedAlready, attackCoordinates));
-        if(isAttacked) return;
+        if(isAttacked) return false;
         else this.attacked.push(attackCoordinates);
 
         for(let ship of this.ships) {
@@ -99,11 +99,13 @@ export class Gameboard {
                 if(arrayEquals(curCoordinates, attackCoordinates)){
                     ship.hit();
                     this.hitCoordinates.push([x, y]);
-                    return;
+                    return true;
                 }
             }
         }
+
         this.missCoordinates.push([x, y]);
+        return true;
     }
 
 }
