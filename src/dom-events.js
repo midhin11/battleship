@@ -1,6 +1,6 @@
 //dom-events.js
 
-import { updateBoardDisplay } from "./render-board.js";
+import { updateBoardDisplay } from "./render-game.js";
 import { gameOvercheck } from "./game-over.js";
 import { computerPlay } from "./computer-play.js";
 

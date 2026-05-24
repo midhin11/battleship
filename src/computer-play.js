@@ -1,6 +1,6 @@
 //computer-play.js
 
-import { updateBoardDisplay } from "./render-board.js";
+import { updateBoardDisplay } from "./render-game.js";
 import { arrayEquals } from "./hepler-functions.js";
 
 export function computerPlay(playerBoard, playerBoardDisplay) {
