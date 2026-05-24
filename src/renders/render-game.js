@@ -1,97 +1,54 @@
-//render-board.js
-import { gameContainer } from "../selectors.js";
+import { gameContainer,  statusBar } from "../selectors.js";
 
-export function renderGame(board, player) {
-    let inGameContainer = document.createElement("div");
+import { renderBoard } from "./render-board.js";
 
-    let playerName = document.createElement("div");
-    let boardDisplay = document.createElement("div");
-    boardDisplay.classList.add("board");
+export function renderGameScreen(playerBoard, compBoard) {
 
-    if(player === "Player") {
-        inGameContainer.classList.add("player-container");
-        playerName.textContent = "Player One";
-        boardDisplay.classList.add("player-board");
-    }
-    else {
-        inGameContainer.classList.add("comp-container");
-        playerName.textContent = "Computer";
-        boardDisplay.classList.add("comp-board");
-    }
+    gameContainer.innerHTML = "";
+    gameContainer.classList.remove("setup-container");
+    gameContainer.classList.add("game-container");
+    statusBar.style.display = "block";
+    statusBar.textContent = "PLAYER TURN";
 
+    let playerRender = renderBoard(playerBoard, "Player");
+    let compRender = renderBoard(compBoard, "Computer");
 
-    for(let i = 0; i < 10; i++) {
-        for(let j = 0; j < 10; j++) {
-            let grid = document.createElement("div");
-            if(player === "Player") grid.classList.add("player");
-            else grid.classList.add("comp");
-            grid.classList.add("grid");
-            grid.setAttribute("data-row", `${i}`);
-            grid.setAttribute("data-col", `${j}`);
-            boardDisplay.append(grid);
-        }
-    }
+    let boardsWrapper = document.createElement("div");
+    boardsWrapper.classList.add("board-wrapper");
+    boardsWrapper.append(playerRender.container, compRender.container);
 
-    inGameContainer.append(playerName);
-    inGameContainer.append(boardDisplay);
-    gameContainer.append(inGameContainer);
+    let legend = document.createElement("div");
+    legend.classList.add("legend");
+    legend.innerHTML = `
+    <div class="legend-item">
+        <div class="legend-box miss"></div>
+        <span>Miss</span>
+    </div>
 
-    // Displaying ships on board
-    displayShips(board, boardDisplay, player);
+    <div class="legend-item">
+        <div class="legend-box hit"></div>
+        <span>Hit</span>
+    </div>
 
-    updateBoardDisplay(board, boardDisplay);
+    <div class="legend-item">
+        <div class="legend-box sunk"></div>
+        <span>Sunk</span>
+    </div>
+    `;
 
-    return boardDisplay;
-}
+    let controls = document.createElement("div");
+    controls.classList.add("game-controls");
+    let restartBtn = document.createElement("button");
+    restartBtn.textContent = "Restart";
+    restartBtn.classList.add("restart-btn");
+    controls.append(restartBtn);
 
+    gameContainer.append(boardsWrapper, legend, controls);
 
-// Functions to change grid appearance as per state change
-
-export function displayShips(board, boardDisplay, player) {
-    // if(player === "Player") {
-    for (let ship of board.ships) {
-        for(let coords of ship.coordinates) {
-            let [row, col] = coords; 
-            let shipGrid = boardDisplay.querySelector(`.grid[data-row="${row}"][data-col="${col}"]`);
-            shipGrid.style.backgroundColor = "gray";
-        }
-    }
-// }
-}
-
-//Displaying hits on board
-export function hitDisplay(board, boardDisplay) {
-    for(let hitCoords of board.hitCoordinates) {
-        let [row, col] = hitCoords;
-        let hitGrid = boardDisplay.querySelector(`.grid[data-row="${row}"][data-col="${col}"]`);
-        hitGrid.style.backgroundColor = "green";
-    }
-}
-
-//Displaying misses on board
-export function missDisplay(board, boardDisplay) {
-    for(let missCoords of board.missCoordinates) {
-        let [row, col] = missCoords;
-        let missGrid = boardDisplay.querySelector(`.grid[data-row="${row}"][data-col="${col}"]`);
-        missGrid.style.backgroundColor = "lightblue";
-    }
-}
-
-//Display sunk as red on board
-export function isSunkDisplay(board, boardDisplay) {
-    for(let ship of board.ships) {
-        if(ship.isSunk()) {
-            for(let coords of ship.coordinates) {
-                let [row, col] = coords; 
-                let sunkGrid = boardDisplay.querySelector(`.grid[data-row="${row}"][data-col="${col}"]`);
-                sunkGrid.style.backgroundColor = "red";
-            }
-        }
-    }
-}
-
-export function updateBoardDisplay(board, boardDisplay) {
-    hitDisplay(board, boardDisplay);
-    missDisplay(board, boardDisplay);
-    isSunkDisplay(board, boardDisplay);
+    return {
+        playerBoardDisplay: playerRender.boardDisplay,
+        compBoardDisplay: compRender.boardDisplay,
+        restartBtn,
+        statusBar
+    };
 }

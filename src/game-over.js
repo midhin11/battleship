@@ -1,13 +1,14 @@
 //game-over.js
 
+import { statusBar } from "./selectors.js";
 
 export function gameOvercheck(playerBoard, compBoard) {
     if(!gameOver(playerBoard, compBoard)) {
         return false;
     }
 
-    if(playerWinCheck(playerBoard)) console.log("You win!");
-    else console.log("You Lose!");
+    if(playerWinCheck(playerBoard)) statusBar.textContent = "YOU WIN!";
+    else statusBar.textContent = "YOU LOSE!";
 
     return true;
 }

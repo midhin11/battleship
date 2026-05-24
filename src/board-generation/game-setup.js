@@ -1,11 +1,12 @@
 //game-setup.js
-import { displayShips } from "../renders/render-game.js";
+import { displayShips } from "../renders/render-board.js";
 
 import { Player } from "../factories.js";
 import { compShipPlacement } from "./compShip-placement.js";
-import { renderGame } from "../renders/render-game.js";
+import { renderGameScreen } from "../renders/render-game.js"; 
 import { renderSetup } from "../renders/render-setup-.js";
 import { gridClickEventInitilaziation } from "../dom-events.js";
+import { gameContainer } from "../selectors.js";
 
 
 export function setupGame() {
@@ -18,16 +19,17 @@ export function setupGame() {
 
     renderSetup(playerBoard, startGame);
 
+
     function startGame(gameContainer) {
         compShipPlacement(compBoard);
 
-        gameContainer.innerHTML = "";
-        gameContainer.classList.remove("setup-container");
-        gameContainer.classList.add("game-container");
+        let {playerBoardDisplay, compBoardDisplay, restartBtn} = renderGameScreen(playerBoard, compBoard);
 
-        let playerBoardDisplay = renderGame(playerBoard, "Player");
-        let compBoardDisplay = renderGame(compBoard, "Computer");
+        restartBtn.disabled = true;
+        restartBtn.addEventListener("click", () => {
+            setupGame();
+        });
 
-        gridClickEventInitilaziation(playerBoard, playerBoardDisplay, compBoard, compBoardDisplay);
+        gridClickEventInitilaziation(playerBoard, playerBoardDisplay, compBoard, compBoardDisplay, restartBtn);
     }
 }

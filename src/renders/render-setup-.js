@@ -1,12 +1,10 @@
 // render-setup.js
 
-import { hitDisplay, missDisplay, isSunkDisplay, updateBoardDisplay } from "./render-game.js";
-import { gameContainer } from "../selectors.js";
+import { gameContainer, statusBar } from "../selectors.js";
 
 export function renderSetup(board, startGame) {
-    // let playerSetupContainer = document.createElement("div");
-    // gameContainer.append(playerSetupContainer);
-    // playerSetupContainer.classList.add("player-setup-container");
+    statusBar.style.display = "none";
+    gameContainer.innerHTML = "";
     gameContainer.classList.remove("game-container");
     gameContainer.classList.add("setup-container");
 
@@ -97,7 +95,7 @@ export function renderSetup(board, startGame) {
             }
             else {
                 currentShipLength.textContent = `ALL SHIPS PLACED`;
-                currDirection.textContent = `GET READY FOR BATTLE!`;
+                currDirection.textContent = `READY FOR BATTLE!`;
                 startBtn.disabled = false;
                 roatateShip.disabled = true;
             }
