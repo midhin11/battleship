@@ -1,0 +1,206 @@
+/* game-styles.css */
+
+html, body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #0b1e2d;
+    color: #d7f3ff;
+    font-family: monospace;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-container {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.board-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    width: 100%;
+}
+
+.board {
+    display: inline-grid;
+    grid-template-columns: repeat(10, 32px);
+    grid-template-rows: repeat(10, 32px);
+    gap: 2px;
+    padding: 10px;
+    background-color: #08141f;
+    border: 3px solid #4fc3f7;
+}
+
+.board:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.grid {
+    height: 32px;
+    width: 32px;
+    border: 1px solid #3a6075;
+    background-color: #16384f;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.player-container, .comp-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    padding: 24px;
+    background-color: #102b3f;
+    box-shadow: 0 0 10px rgba(79,195,247,0.3);
+}
+
+.player-container > div:first-child, .comp-container > div:first-child {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #81d4fa;
+}
+
+.player {
+    cursor: not-allowed;
+}
+
+.comp {
+    cursor: crosshair;
+    transition: 0.1s ease-in-out;
+}
+
+.comp:hover {
+    background-color: #26c6da;
+    transform: scale(1.05);
+}
+
+
+.ship-game {
+    background-color: gray;
+}
+
+.hit {
+    background-color: #43a047;
+    animation: pop 0.2s ease;
+}
+
+.miss {
+    background-color: #8ecae6;
+}
+
+.sunk {
+    background-color: #e53935;
+    animation: pop 0.2s ease;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.status-bar {
+    display: none;
+    text-align: center;
+    padding: 16px;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    background-color: #102b3f;
+    border-bottom: 2px solid #4fc3f7;
+    color: #81d4fa;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.restart-btn {
+    padding: 12px 20px;
+    background-color: #16384f;
+    color: #d7f3ff;
+    border: 2px solid #4fc3f7;
+    font-family: monospace;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.restart-btn:hover {
+    background-color: #1d4d6b;
+    transform: scale(1.05);
+}
+
+.restart-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    background-color: #0f2635;
+    border-color: #35586b;
+    color: #7fa0b1;
+}
+/* .player-container > * {
+} */
+ 
+/* LEGEND */
+
+.legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 12px 20px;
+    background-color: #102b3f;
+    border: 2px solid #4fc3f7;
+    box-shadow: 0 0 10px rgba(79,195,247,0.2);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    color: #81d4fa;
+}
+
+.legend-box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #3a6075;
+}
+
+
+@keyframes pop {
+
+    0% {
+        transform: scale(0.7);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

@@ -1,70 +1,4 @@
-/* styles.css */
-
-html, body {
-    margin: 0;
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    min-height: 100vh;
-}
-
-.main {
-    height: 100%;
-}
-
-.board {
-    display: grid;
-    grid-template-columns: repeat(10, 30px);
-    grid-template-rows: repeat(10, 30px);
-    gap: 1px;
-}
-
-.grid {
-    border: 1px solid black;
-    box-sizing: border-box;
-}
-
-.comp {
-    cursor: pointer;
-    transition: 0.1s ease-in-out;
-}
-
-.player {
-    cursor: not-allowed;
-}
-
-.comp:hover {
-    background-color: cyan;
-}
-
-.game-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    /* padding: 0px 100px; */
-    border: 3px solid red;
-}
-
-.game-container > * {
-    border: 1px solid green;
-}
-
-.player-container, .comp-container {
-    border: 1px solid green;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    padding: 10px
-}
-
-/* .player-container > * {
-} */
-
+/* setup-styles.css */
 
 /* SETUP PHASE STYLING */
 
@@ -125,7 +59,7 @@ body {
 }
 
 .setup-grid:hover {
-    background-color: #26c6da;
+    /* background-color: #26c6da; */
     cursor: pointer;
 }
 
