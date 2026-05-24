@@ -1,5 +1,17 @@
 /* styles.css */
 
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
 .grid {
     border: 1px solid black;
     box-sizing: border-box;
