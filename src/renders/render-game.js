@@ -3,6 +3,7 @@ import { gameContainer } from "../selectors.js";
 
 export function renderGame(board, player) {
     let inGameContainer = document.createElement("div");
+
     let playerName = document.createElement("div");
     let boardDisplay = document.createElement("div");
     boardDisplay.classList.add("board");

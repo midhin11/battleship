@@ -13,12 +13,11 @@ export function computerPlay(playerBoard, playerBoardDisplay) {
         let row, col;
         let lastHitCoords = hitCoords[hitCoords.length - 1];
         let secLastHitCoords = hitCoords[hitCoords.length - 2];
-        let lastHitShip = findLastHitShip(playerBoard, lastHitCoords);
 
         if(hitCoords.length >= 2) {
+            let lastHitShip = findLastHitShip(playerBoard, lastHitCoords);
 
             if(!lastHitShip.isSunk()) {
-
                 let sameRow = lastHitCoords[0] === secLastHitCoords[0];
                 let sameCol = lastHitCoords[1] === secLastHitCoords[1];
 

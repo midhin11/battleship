@@ -9,8 +9,8 @@ export function compShipPlacement(compBoard) {
 
         let axisNum = Math.floor(Math.random() * 2);
         let axis;
-        if(axisNum === 0) axis = "x-axis";
-        else axis = "y-axis"
+        if(axisNum === 0) axis = "horizontal";
+        else axis = "vertical"
 
         let shipPlaced = false
         while(!shipPlaced) {

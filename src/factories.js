@@ -37,22 +37,22 @@ export class Gameboard {
         let placedCoordinates = false
         let shipBuilder = [];
 
-        if(direction === "x-axis") {
+        if(direction === "horizontal") {
             if(!this.#boundaryValidate(length, direction, x, y)) return false;
 
             for(let i = 0; i < ship.length; i++) {
-                let current = [x+i, y]; 
+                let current = [x, y+i]; 
                 shipBuilder.push(current);  
             }
 
             placedCoordinates = this.#placeShipCoordinates(shipBuilder, ship);
         }
 
-        if(direction === "y-axis") {
+        if(direction === "vertical") {
             if(!this.#boundaryValidate(length, direction, x, y)) return false;
             
             for(let i = 0; i < ship.length; i++) {
-                let current = [x, y+i];
+                let current = [x+i, y];
                 shipBuilder.push(current);
             }
 
@@ -69,12 +69,12 @@ export class Gameboard {
     }
 
     #boundaryValidate(length, direction, x, y) {  // 5, x, 5, 0
-        if(direction === "x-axis") {
-            if(x + length -1 > 9) return false;
+        if(direction === "horizontal") {
+            if(y + length -1 > 9) return false;
         }
 
-        if(direction === "y-axis") {
-            if(y + length -1 > 9) return false;
+        if(direction === "vertical") {
+            if(x + length -1 > 9) return false;
         }
 
         return true;
