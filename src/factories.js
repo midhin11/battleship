@@ -32,64 +32,48 @@ export class Gameboard {
     // Ship placement and helper functions
     placeShip(length, direction, x, y) {  
         if(this.shipCount >= 5) return false;
+        if(!this.canPlaceShip(length, direction, x, y)) return false;
 
         let ship = new Ship(length);
-        let placedCoordinates = false
-        let shipBuilder = [];
+        let shipBuilder = this.getCoordinates(length, direction, x, y);
 
-        if(direction === "horizontal") {
-            if(!this.#boundaryValidate(length, direction, x, y)) return false;
-
-            for(let i = 0; i < ship.length; i++) {
-                let current = [x, y+i]; 
-                shipBuilder.push(current);  
-            }
-
-            placedCoordinates = this.#placeShipCoordinates(shipBuilder, ship);
-        }
-
-        if(direction === "vertical") {
-            if(!this.#boundaryValidate(length, direction, x, y)) return false;
-            
-            for(let i = 0; i < ship.length; i++) {
-                let current = [x+i, y];
-                shipBuilder.push(current);
-            }
-
-            placedCoordinates = this.#placeShipCoordinates(shipBuilder, ship);
-        }
-
-        if(placedCoordinates) {
-            this.ships.push(ship);
-            this.shipCount++;
-            return true;
-        }
-
-        return false;
-    }
-
-    #boundaryValidate(length, direction, x, y) {  // 5, x, 5, 0
-        if(direction === "horizontal") {
-            if(y + length -1 > 9) return false;
-        }
-
-        if(direction === "vertical") {
-            if(x + length -1 > 9) return false;
-        }
-
+        this.#placeShipCoordinates(shipBuilder, ship);
+        this.ships.push(ship);
+        this.shipCount++;
         return true;
     }
 
     #placeShipCoordinates(shipBuilder, ship) {        
-        for(let coordinates of shipBuilder) {
-            let isShipPlaced = this.occupiedCoordinates.some(placedAlready => arrayEquals(placedAlready, coordinates));
+        ship.coordinates.push(...shipBuilder);
+        this.occupiedCoordinates.push(...shipBuilder);
+    }
+
+
+    //Ship placement coordeates and validate
+    getCoordinates(length, direction, x, y) {
+        let coordsArr = [];
+        for(let i = 0; i < length; i++) {
+            if(direction === "vertical") coordsArr.push([x+i, y]);
+            else coordsArr.push([x, y+i]); 
+        }
+        return coordsArr;
+    }
+
+    canPlaceShip(length, direction, x, y) {
+        let coordsArr = this.getCoordinates(length, direction, x, y)
+        for(let coords of coordsArr) {
+            if(coords[0] > 9 || coords[1] > 9 || coords[0] < 0 || coords[1] < 0) {
+                return false
+            }
+
+            let isShipPlaced = this.occupiedCoordinates.some(placedAlready => arrayEquals(placedAlready, coords))
             if(isShipPlaced) return false;
         }
 
-        ship.coordinates.push(...shipBuilder);
-        this.occupiedCoordinates.push(...shipBuilder);
         return true;
     }
+
+
 
     // Recieve attack
     receiveAttack(x, y) {

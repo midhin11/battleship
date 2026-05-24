@@ -19,20 +19,24 @@ export function renderSetup(board, startGame) {
     let lengthArr = [5, 4, 4, 3, 3];
     let curlengthIndex = 0;
 
+
     let placeShip = document.createElement("div");
     placeShip.textContent = "PLACE YOUR SHIPS";
     placeShip.classList.add("place-ship");
     setupPanel.append(placeShip);
+
 
     let currentShipLength = document.createElement("div");
     currentShipLength.textContent = `Current Ship Length: ${lengthArr[curlengthIndex]}`;
     currentShipLength.classList.add("curr-len");
     setupPanel.append(currentShipLength);
 
+
     let currDirection = document.createElement("div");
     currDirection.textContent = `Current Direction: ${direction}`;
     currDirection.classList.add("curr-dir");
     setupPanel.append(currDirection);
+
 
     let roatateShip = document.createElement("button");
     roatateShip.textContent = `Rotate Ship`;
@@ -43,6 +47,7 @@ export function renderSetup(board, startGame) {
     })
     setupPanel.append(roatateShip);
     
+
     let setupBoard = document.createElement("div");
     setupBoard.classList.add("setup-board");
     setupPanel.append(setupBoard);
@@ -56,6 +61,7 @@ export function renderSetup(board, startGame) {
     })
     setupPanel.append(startBtn);
 
+    // Grid generation for board
     for(let i = 0; i < 10; i++) {
         for(let j = 0; j < 10; j++) {
             let grid = document.createElement("div");
@@ -66,18 +72,26 @@ export function renderSetup(board, startGame) {
         }
     }
     
+    // On click actions
     let grids = setupBoard.querySelectorAll(".setup-grid") 
     grids.forEach(grid => {
         grid.addEventListener("click", (e) => {
-
             let length = lengthArr[curlengthIndex];
             row = Number(e.target.dataset.row);
             col = Number(e.target.dataset.col);
+            
+            let coordsList = board.getCoordinates(length, direction, row, col) 
+            coordsList.forEach(coords => {
+                let curGrid = setupBoard.querySelector(`.setup-grid[data-row="${coords[0]}"][data-col="${coords[1]}"]`);
+
+                if(!curGrid) return;
+                curGrid.classList.remove("preview-valid", "preview-invalid")
+            })
+
+
             let shipPlaced = board.placeShip(length, direction, row, col);
             if(!shipPlaced) return;
-
             curlengthIndex++;
-
             if(lengthArr[curlengthIndex] !== undefined) {
                 currentShipLength.textContent = `Current Ship Length: ${lengthArr[curlengthIndex]}`;
             }
@@ -91,6 +105,42 @@ export function renderSetup(board, startGame) {
             displayShips(board, setupBoard);    
         })
     })
+
+    //mousenter acion
+    grids.forEach(grid => {
+        grid.addEventListener("mouseenter", (e) => {
+            row = Number(e.target.dataset.row);
+            col = Number(e.target.dataset.col);
+            let length = lengthArr[curlengthIndex];
+
+            let coordsList = board.getCoordinates(length, direction, row, col) 
+            let valid = board.canPlaceShip(length, direction, row, col);
+
+            coordsList.forEach(coords => {
+                let curGrid = setupBoard.querySelector(`.setup-grid[data-row="${coords[0]}"][data-col="${coords[1]}"]`);
+                
+                if(!curGrid) return;
+                if(valid) curGrid.classList.add("preview-valid");
+                else curGrid.classList.add("preview-invalid");
+            })
+        })
+    })
+
+    //mouseleave action
+    grids.forEach(grid => {
+        grid.addEventListener("mouseleave", (e) => {
+            row = Number(e.target.dataset.row);
+            col = Number(e.target.dataset.col);
+            let length = lengthArr[curlengthIndex];
+            let coordsList = board.getCoordinates(length, direction, row, col) 
+            coordsList.forEach(coords => {
+                let curGrid = setupBoard.querySelector(`.setup-grid[data-row="${coords[0]}"][data-col="${coords[1]}"]`);
+
+                if(!curGrid) return;
+                curGrid.classList.remove("preview-valid", "preview-invalid")
+            })
+        })
+    })
     
 }
 
@@ -100,7 +150,7 @@ export function displayShips(board, boardDisplay) {
         for(let coords of ship.coordinates) {
             let [row, col] = coords; 
             let shipGrid = boardDisplay.querySelector(`.setup-grid[data-row="${row}"][data-col="${col}"]`);
-            shipGrid.style.backgroundColor = "gray";
+            shipGrid.classList.add("ship");
         }
     }
 }

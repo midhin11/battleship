@@ -147,3 +147,15 @@ body {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.ship {
+    background-color: gray;
+}
+
+.preview-valid {
+    background-color: lightgreen;
+}
+
+.preview-invalid {
+    background-color: lightcoral;
+}
