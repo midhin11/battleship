@@ -1,4 +1,5 @@
 node_modules
 dist
-src/test.js
+test.js
 Next-steps.md
+test.py
