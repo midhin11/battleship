@@ -23,6 +23,14 @@ Classic Battleship game built with Vanilla JavaScript as part of The Odin Projec
 [Live Demo](https://midhin11.github.io/battleship/)
 
 ## Screenshots
-[Setup Screen](./screenshots/ship-placement.png)
-[Game Screen](./screenshots/game-screen.png)
-[Win Screen](./screenshots/win-screen.png)
+<p align="center">
+  <img src="./screenshots/ship-placement.png" alt="Setup Screen" width="800">
+</p>
+
+<p align="center">
+  <img src="./screenshots/game-screen.png" alt="Game Screen" width="800">
+</p>
+
+<p align="center">
+  <img src="./screenshots/win-screen.png" alt="Win Screen" width="800">
+</p>
