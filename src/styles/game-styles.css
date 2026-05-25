@@ -27,7 +27,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 40px;
-    padding: 40px;
+    padding: 40px 40px 20px 40px;
     box-sizing: border-box;
 }
 
@@ -41,8 +41,8 @@ body {
 
 .board {
     display: inline-grid;
-    grid-template-columns: repeat(10, 32px);
-    grid-template-rows: repeat(10, 32px);
+    grid-template-columns: repeat(10, 28px);
+    grid-template-rows: repeat(10, 28px);
     gap: 2px;
     padding: 10px;
     background-color: #08141f;
@@ -55,8 +55,8 @@ body {
 }
 
 .grid {
-    height: 32px;
-    width: 32px;
+    height:28px;
+    width: 28px;
     border: 1px solid #3a6075;
     background-color: #16384f;
     box-sizing: border-box;
@@ -68,7 +68,7 @@ body {
     flex-direction: column;
     gap: 16px;
     align-items: center;
-    padding: 24px;
+    padding: 16px;
     background-color: #102b3f;
     box-shadow: 0 0 10px rgba(79,195,247,0.3);
 }
@@ -140,7 +140,7 @@ body {
 }
 
 .restart-btn {
-    padding: 12px 20px;
+    padding: 10px 20px;
     background-color: #16384f;
     color: #d7f3ff;
     border: 2px solid #4fc3f7;
@@ -188,8 +188,8 @@ body {
 }
 
 .legend-box {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border: 1px solid #3a6075;
 }
 
