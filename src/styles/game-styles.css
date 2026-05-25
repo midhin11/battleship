@@ -89,7 +89,7 @@ body {
     transition: 0.1s ease-in-out;
 }
 
-.comp:hover {
+.comp:hover:not(.hit):not(.miss):not(.sunk) {
     background-color: #26c6da;
     transform: scale(1.05);
 }
@@ -202,5 +202,73 @@ body {
 
     100% {
         transform: scale(1);
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    .game-container {
+        padding: 20px;
+        gap: 30px;
+    }
+
+    .board-wrapper {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .player-container, .comp-container {
+        width: 100%;
+        max-width: 420px;
+        padding: 18px;
+        box-sizing: border-box;
+    }
+
+    .player-container > div:first-child,
+    .comp-container > div:first-child {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .board {
+        grid-template-columns: repeat(10, 20px);
+        grid-template-rows: repeat(10, 20px);
+
+        padding: 8px;
+    }
+
+    .grid {
+        width: 20px;
+        height: 20px;
+    }
+
+    .legend {
+        flex-wrap: wrap;
+        gap: 16px;
+        width: 100%;
+        max-width: 420px;
+        box-sizing: border-box;
+    }
+
+    .legend-box {
+        width: 15px;
+        height: 15px;
+        border: 1px solid #3a6075;
+    }
+
+    .legend-item {
+        font-size: 0.95rem;
+    }
+
+    .status-bar {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .restart-btn {
+        width: 100%;
+        max-width: 250px;
+        font-size: 1rem;
     }
 }
